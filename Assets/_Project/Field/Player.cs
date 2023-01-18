@@ -4,19 +4,40 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private Rigidbody rb;
-    
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        InvokeRepeating("SetVelocity", 0.0f, 1.0f);
-        // rb.velocity = new Vector3(10, 0, 10);
-    }
+  public Animator Animator;
+  private Rigidbody rb;
 
-    void SetVelocity() {
-        float x = Random.Range(-10.0f, 10.0f);
-        float z = Random.Range(-10.0f, 10.0f);
-        rb.velocity = new Vector3(x, 0, z);
+  void Start()
+  {
+    rb = GetComponent<Rigidbody>();
+    InvokeRepeating("MoveForward", 0.0f, 10.0f);
+    InvokeRepeating("MoveBackward", 5.0f, 10.0f);
+    // rb.velocity = new Vector3(10, 0, 10);
+  }
 
-    }
+  void MoveForward()
+  {
+    float x = Random.Range(10.0f, 0.0f);
+    float z = Random.Range(10.0f, 0.0f);
+    rb.velocity = new Vector3(x, 0, z);
+    Animator.SetInteger("Move", 1);
+    Animator.SetInteger("MoveForward", 1);
+  }
+
+  void MoveBackward()
+  {
+    float x = Random.Range(0.0f, -10.0f);
+    float z = Random.Range(0.0f, -10.0f);
+    rb.velocity = new Vector3(x, 0, z);
+    Animator.SetInteger("Move", 1);
+    Animator.SetInteger("MoveForward", 0);
+  }
+
+
+  //   void SetVelocity()
+  //   {
+  //     float x = Random.Range(-10.0f, 10.0f);
+  //     float z = Random.Range(-10.0f, 10.0f);
+  //     rb.velocity = new Vector3(x, 0, z);
+  //   }
 }
