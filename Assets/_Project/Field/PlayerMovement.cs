@@ -6,38 +6,59 @@ namespace AmericanFootballManager
 {
   public class PlayerMovement : MonoBehaviour
   {
-    public Animator Animator;
-    public bool Forward;
+    public bool RightSide;
+    private Vector3 FacingDirection;
     private Rigidbody rb;
+    public float speed;
+    public PlayerAnimation PlayerAnimation;
 
     void Start()
     {
       rb = GetComponent<Rigidbody>();
-      if (Forward) MoveForward();
-      else MoveBackward();
-    //   InvokeRepeating("MoveForward", 0.0f, 10.0f);
-    //   InvokeRepeating("MoveBackward", 5.0f, 10.0f);
-      // rb.velocity = new Vector3(10, 0, 10);
+
+      if (RightSide) FacingDirection = Vector3.left;
+      else FacingDirection = Vector3.right;
+
+      transform.forward = FacingDirection;
+
+      StartCoroutine(WalkingCycle());
     }
 
-    void MoveForward()
+    IEnumerator WalkingCycle()
     {
-    //   float x = Random.Range(10.0f, 0.0f);
-    //   float z = Random.Range(10.0f, 0.0f);
-    //   rb.velocity = new Vector3(x, 0, z);
-      rb.velocity = new Vector3(0, 0, -10);
-      Animator.SetInteger("Move", 1);
-      Animator.SetInteger("MoveForward", 1);
+      while (true)
+      {
+        WalkBack();
+        yield return new WaitForSeconds(3);
+        Idle();
+        yield return new WaitForSeconds(1);
+        WalkForward();
+        yield return new WaitForSeconds(3);
+        Idle();
+        yield return new WaitForSeconds(1);
+      }
     }
 
-    void MoveBackward()
+    void WalkBack()
     {
-    //   float x = Random.Range(0.0f, -10.0f);
-    //   float z = Random.Range(0.0f, -10.0f);
-    //   rb.velocity = new Vector3(x, 0, z);
-      rb.velocity = new Vector3(0, 0, 10);
-      Animator.SetInteger("Move", 1);
-      Animator.SetInteger("MoveForward", 0);
+      // transform.Translate(FacingDirection * speed * Time.deltaTime, Space.World)
+
+      rb.velocity = FacingDirection * -1 * speed;
+      PlayerAnimation.MoveBackward();
+    }
+
+    void WalkForward()
+    {
+      // transform.Translate(FacingDirection * speed * Time.deltaTime, Space.World)
+
+      rb.velocity = FacingDirection * speed;
+      PlayerAnimation.MoveForward();
+    }
+
+    void Idle()
+    {
+      rb.velocity = Vector3.zero;
+      PlayerAnimation.Idle();
     }
   }
 }
