@@ -10,7 +10,7 @@ namespace AmericanFootballManager
     public PlayerMovement PlayerMovement;
     void Start()
     {
-      StartCoroutine(WalkingCycle());
+      // StartCoroutine(WalkingCycle());
     }
     IEnumerator WalkingCycle()
     {
