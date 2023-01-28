@@ -23,49 +23,30 @@ namespace AmericanFootballManager
       transform.forward = FacingDirection;
 
       BackDirection = FacingDirection * -1;
-
-      StartCoroutine(WalkingCycle());
     }
-    IEnumerator WalkingCycle()
+    public void TurnAndWalkForward()
     {
-      while (true)
-      {
-        WalkBack();
-        yield return new WaitForSeconds(1);
-        Idle();
-        yield return new WaitForSeconds(1);
-        WalkForward();
-        yield return new WaitForSeconds(1);
-        Idle();
-        yield return new WaitForSeconds(1);
-
-        TurnAndWalk(BackDirection);
-        yield return new WaitForSeconds(1);
-        Idle();
-        yield return new WaitForSeconds(1);
-        TurnAndWalk(FacingDirection);
-        yield return new WaitForSeconds(1);
-        Idle();
-        yield return new WaitForSeconds(1);
-      }
-    }
-    void TurnAndWalk(Vector3 direction)
-    {
-      PlayerRotation.TurnOverTime(direction);
-      rb.velocity = direction * speed;
+      PlayerRotation.TurnOverTime(FacingDirection);
+      rb.velocity = FacingDirection * speed;
       PlayerAnimation.MoveForward();
     }
-    void WalkBack()
+    public void TurnAndWalkBack()
+    {
+      PlayerRotation.TurnOverTime(BackDirection);
+      rb.velocity = BackDirection * speed;
+      PlayerAnimation.MoveForward();
+    }
+    public void WalkBack()
     {
       rb.velocity = BackDirection * speed;
       PlayerAnimation.MoveBackward();
     }
-    void WalkForward()
+    public void WalkForward()
     {
       rb.velocity = FacingDirection * speed;
       PlayerAnimation.MoveForward();
     }
-    void Idle()
+    public void Idle()
     {
       PlayerRotation.Stop();
       rb.velocity = Vector3.zero;
