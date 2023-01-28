@@ -480,9 +480,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RightSide: 0
-  speed: 6
-  turnRate: 500
+  speed: 20
   PlayerAnimation: {fileID: 399086151}
+  PlayerRotation: {fileID: 399086152}
 --- !u!65 &399086147
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -555,6 +555,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animator: {fileID: 399086149}
+--- !u!114 &399086152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 399086144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1ddf58a63f2466185de6355f2f2845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnRate: 500
 --- !u!1 &405276339 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4957605394277967864, guid: 4f46098734d87e24490aef9267915ad2, type: 3}
@@ -1596,9 +1609,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RightSide: 1
-  speed: 4
-  turnRate: 500
+  speed: 10
   PlayerAnimation: {fileID: 2120375591}
+  PlayerRotation: {fileID: 2120375592}
 --- !u!65 &2120375588
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1646,6 +1659,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Animator: {fileID: 2120375590}
+--- !u!114 &2120375592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2120375584}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b1ddf58a63f2466185de6355f2f2845, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  turnRate: 500
 --- !u!1 &2139542938 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4957605394448914614, guid: 4f46098734d87e24490aef9267915ad2, type: 3}
