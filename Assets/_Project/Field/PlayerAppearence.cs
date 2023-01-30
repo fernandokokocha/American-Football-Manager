@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 namespace AmericanFootballManager {
     public enum SkinColor { brown, white };
-    public enum ArmourColor { blue, red };
+    // public enum ArmourColor { blue, red };
     public class PlayerAppearence : MonoBehaviour {
         Dictionary<SkinColor, Color> SkinColors = new(){
         {SkinColor.white, new Color(1.0f, 0.7950f, 0.5707f, 1.0f)},
@@ -13,9 +14,10 @@ namespace AmericanFootballManager {
         Dictionary<ArmourColor, Color> ArmourColors = new(){
         {ArmourColor.blue, Color.blue},
         {ArmourColor.red, Color.red},
+        {ArmourColor.yellow, Color.yellow},
     };
         public SkinColor SkinColor;
-        public ArmourColor ArmourColor;
+        // public ArmourColor ArmourColor;
         public bool HasHair;
         public bool HasTopKnot;
         public GameObject BodyObject;
@@ -27,6 +29,7 @@ namespace AmericanFootballManager {
         public GameObject LegsObject;
         public GameObject HairObject;
         public GameObject TopKnotObject;
+        [Inject] public Team Team;
         void Start() {
             UpdateSkinColor(BodyObject);
             UpdateSkinColor(FaceObject);
@@ -46,7 +49,7 @@ namespace AmericanFootballManager {
         void UpdateArmourColor(GameObject gameObject) {
             Renderer renderer = gameObject.GetComponent<Renderer>();
             Material material = renderer.material;
-            material.color = ArmourColors[ArmourColor];
+            material.color = ArmourColors[Team.ArmourColor];
         }
     }
 }
