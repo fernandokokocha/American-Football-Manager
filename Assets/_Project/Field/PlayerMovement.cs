@@ -12,7 +12,7 @@ namespace AmericanFootballManager {
         public float speed;
         public PlayerAnimation PlayerAnimation;
         public PlayerRotation PlayerRotation;
-        void Start() {
+        void Awake() {
             rb = GetComponent<Rigidbody>();
 
             if (RightSide) FacingDirection = Vector3.left;
@@ -40,7 +40,7 @@ namespace AmericanFootballManager {
             PlayerAnimation.MoveForward();
         }
         public void Idle() {
-            PlayerRotation.Stop();
+            PlayerRotation.StopRotating();
             rb.velocity = Vector3.zero;
             PlayerAnimation.Idle();
         }

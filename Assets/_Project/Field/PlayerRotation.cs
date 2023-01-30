@@ -24,7 +24,7 @@ namespace AmericanFootballManager {
         public void TurnOverTime(Vector3 direction) {
             RotateTowards = direction;
         }
-        public void Stop() {
+        public void StopRotating() {
             RotateTowards = null;
         }
     }

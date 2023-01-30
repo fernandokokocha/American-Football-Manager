@@ -4,31 +4,28 @@ using UnityEngine;
 using System;
 
 namespace AmericanFootballManager {
+    public enum Program { holdPosition, runForward };
     public class PlayerBehaviour : MonoBehaviour {
         public PlayerMovement PlayerMovement;
+        public Program Program;
         void Start() {
-            // StartCoroutine(WalkingCycle());
+            RealizeProgram();
         }
-        IEnumerator WalkingCycle() {
-            while (true) {
-                yield return new WaitForSeconds(1);
-                PlayerMovement.WalkBack();
-                yield return new WaitForSeconds(1);
+        void OnCollisionEnter(Collision collision) {
+            if (!collision.gameObject.CompareTag("Player")) return;
+            StartCoroutine(WaitAndRealize());
+        }
+        void RealizeProgram() {
+            if (Program == Program.holdPosition) {
                 PlayerMovement.Idle();
-                yield return new WaitForSeconds(1);
+            } else if (Program == Program.runForward) {
                 PlayerMovement.WalkForward();
-                yield return new WaitForSeconds(1);
-                PlayerMovement.Idle();
-
-                yield return new WaitForSeconds(1);
-                PlayerMovement.TurnAndWalkBack();
-                yield return new WaitForSeconds(1);
-                PlayerMovement.Idle();
-                yield return new WaitForSeconds(1);
-                PlayerMovement.TurnAndWalkForward();
-                yield return new WaitForSeconds(1);
-                PlayerMovement.Idle();
             }
+        }
+        IEnumerator WaitAndRealize() {
+            PlayerMovement.Idle();
+            yield return new WaitForSeconds(2);
+            RealizeProgram();
         }
     }
 }

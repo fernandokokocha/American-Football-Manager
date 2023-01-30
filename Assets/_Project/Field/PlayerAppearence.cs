@@ -5,7 +5,6 @@ using Zenject;
 
 namespace AmericanFootballManager {
     public enum SkinColor { brown, white };
-    // public enum ArmourColor { blue, red };
     public class PlayerAppearence : MonoBehaviour {
         Dictionary<SkinColor, Color> SkinColors = new(){
         {SkinColor.white, new Color(1.0f, 0.7950f, 0.5707f, 1.0f)},
@@ -17,7 +16,6 @@ namespace AmericanFootballManager {
         {ArmourColor.yellow, Color.yellow},
     };
         public SkinColor SkinColor;
-        // public ArmourColor ArmourColor;
         public bool HasHair;
         public bool HasTopKnot;
         public GameObject BodyObject;
