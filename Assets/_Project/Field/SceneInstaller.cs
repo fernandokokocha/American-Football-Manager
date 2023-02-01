@@ -7,6 +7,23 @@ namespace AmericanFootballManager {
             Container
                .Bind<Team>()
                .FromComponentInParents();
+
+            Container
+               .Bind<Ball>()
+               .FromComponentInHierarchy()
+               .AsSingle();
+
+
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+            foreach (GameObject player in players) {
+                if (player.GetComponent<PlayerPosition>().Position == Position.QB) {
+                    Container
+                       .Bind<PlayerPosition>()
+                       .FromInstance(player.GetComponent<PlayerPosition>());
+
+                    break;
+                }
+            }
         }
     }
 }
