@@ -6,11 +6,10 @@ using System;
 namespace AmericanFootballManager {
     public class PlayerRotation : MonoBehaviour {
         private Nullable<Vector3> RotateTowards;
-        public float turnRate = 500;
-        void Start() {
+        public float turnRate = 100;
+        void Awake() {
             RotateTowards = null;
         }
-
         void Update() {
             if (RotateTowards.HasValue) {
                 Quaternion toRotation = Quaternion.LookRotation(RotateTowards.Value, Vector3.up);
@@ -20,7 +19,6 @@ namespace AmericanFootballManager {
         public void TurnImmediately(Vector3 direction) {
             transform.forward = direction;
         }
-
         public void TurnOverTime(Vector3 direction) {
             RotateTowards = direction;
         }

@@ -27,7 +27,7 @@ namespace AmericanFootballManager {
         public GameObject LegsObject;
         public GameObject HairObject;
         public GameObject TopKnotObject;
-        [Inject] public Team Team;
+        [Inject] private Team Team;
         void Start() {
             UpdateSkinColor(BodyObject);
             UpdateSkinColor(FaceObject);

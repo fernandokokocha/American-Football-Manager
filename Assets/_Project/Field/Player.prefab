@@ -2253,8 +2253,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.83387536, y: 1.7591187, z: 0.45702308}
-  m_Center: {x: -0.017250538, y: 0.90373653, z: 0.018795969}
+  m_Size: {x: 0.5, y: 1.5, z: 0.45702308}
+  m_Center: {x: -0.017250538, y: 0.77, z: 0.018795969}
 --- !u!114 &4599564763426761350
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2279,7 +2279,6 @@ MonoBehaviour:
   LegsObject: {fileID: 8869870384484158919}
   HairObject: {fileID: 8869870384884762296}
   TopKnotObject: {fileID: 8869870383830749376}
-  Team: {fileID: 0}
 --- !u!114 &4599564763426761351
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2321,7 +2320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b1ddf58a63f2466185de6355f2f2845, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turnRate: 500
+  turnRate: 100
 --- !u!114 &4599564763426761357
 MonoBehaviour:
   m_ObjectHideFlags: 0

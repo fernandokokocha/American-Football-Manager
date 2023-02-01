@@ -701,7 +701,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4599564763426761357, guid: c09779f35881742bfb96b59ee51c1772, type: 3}
       propertyPath: Program
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8869870384079944321, guid: c09779f35881742bfb96b59ee51c1772, type: 3}
       propertyPath: m_Name
@@ -1508,7 +1508,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4599564763426761357, guid: c09779f35881742bfb96b59ee51c1772, type: 3}
       propertyPath: Program
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8869870384079944321, guid: c09779f35881742bfb96b59ee51c1772, type: 3}
       propertyPath: m_Name
@@ -1651,7 +1651,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4599564763426761357, guid: c09779f35881742bfb96b59ee51c1772, type: 3}
       propertyPath: Program
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8869870384079944321, guid: c09779f35881742bfb96b59ee51c1772, type: 3}
       propertyPath: m_Name
@@ -2053,6 +2053,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 413450788}
     m_Modifications:
+    - target: {fileID: 4599564763426761357, guid: c09779f35881742bfb96b59ee51c1772, type: 3}
+      propertyPath: Program
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8869870384079944321, guid: c09779f35881742bfb96b59ee51c1772, type: 3}
       propertyPath: m_Name
       value: Player8
@@ -2697,6 +2701,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 413450788}
     m_Modifications:
+    - target: {fileID: 4599564763426761356, guid: c09779f35881742bfb96b59ee51c1772, type: 3}
+      propertyPath: turnRate
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4599564763426761357, guid: c09779f35881742bfb96b59ee51c1772, type: 3}
+      propertyPath: Program
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8869870384079944321, guid: c09779f35881742bfb96b59ee51c1772, type: 3}
       propertyPath: m_Name
       value: Player9
