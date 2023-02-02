@@ -2293,7 +2293,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RightSide: 1
-  speed: 20
+  speed: 40
   PlayerAnimation: {fileID: 4599564763426761347}
   PlayerRotation: {fileID: 4599564763426761356}
 --- !u!114 &4599564763426761347

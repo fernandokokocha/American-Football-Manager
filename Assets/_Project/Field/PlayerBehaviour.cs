@@ -10,10 +10,14 @@ namespace AmericanFootballManager {
         public PlayerMovement PlayerMovement;
         public Program Program;
         private Rigidbody rb;
+        [Inject] private Interface Interface;
         [Inject] private Ball Ball;
         [Inject] private PlayerPosition MyQB;
         void Start() {
             rb = GetComponent<Rigidbody>();
+            Interface.OnSnap += DoSnap;
+        }
+        void DoSnap() {
             RealizeProgram();
         }
         void OnCollisionEnter(Collision collision) {
@@ -29,9 +33,7 @@ namespace AmericanFootballManager {
             } else if (Program == Program.runToBall) {
                 PlayerMovement.TurnAndWalk(GetToBallDirection());
             } else if (Program == Program.snap) {
-                // PlayerMovement.TurnAndWalk(GetToBallDirection());
                 Ball.ThrowTo(MyQB);
-                
             }
         }
         Vector3 GetToBallDirection() {
