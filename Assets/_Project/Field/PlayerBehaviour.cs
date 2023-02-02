@@ -5,7 +5,7 @@ using System;
 using Zenject;
 
 namespace AmericanFootballManager {
-    public enum Program { holdPosition, runForward, runToBall, snap };
+    public enum Program { holdPosition, runForward, runToBall, snap, walkBack };
     public class PlayerBehaviour : MonoBehaviour {
         public PlayerMovement PlayerMovement;
         public Program Program;
@@ -33,8 +33,18 @@ namespace AmericanFootballManager {
             } else if (Program == Program.runToBall) {
                 PlayerMovement.TurnAndWalk(GetToBallDirection());
             } else if (Program == Program.snap) {
-                Ball.ThrowTo(MyQB);
+                if (HasBall()) ThrowBallTo(MyQB);
+                PlayerMovement.Idle();
+            } else if (Program == Program.walkBack) {
+                PlayerMovement.WalkBack();
             }
+        }
+        private bool HasBall() {
+            Ball[] balls = GetComponentsInChildren<Ball>();
+            return (balls.Length > 0);
+        }
+        void ThrowBallTo(PlayerPosition MyQB) {
+            Ball.ThrowTo(MyQB);
         }
         Vector3 GetToBallDirection() {
             Vector3 ballPosition = new Vector3(-16.0200005f, 9.75f, -43.3199997f);

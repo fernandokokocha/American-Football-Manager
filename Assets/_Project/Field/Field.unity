@@ -1592,6 +1592,10 @@ PrefabInstance:
       propertyPath: RightSide
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4599564763426761357, guid: c09779f35881742bfb96b59ee51c1772, type: 3}
+      propertyPath: Program
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 8791335051973598303, guid: c09779f35881742bfb96b59ee51c1772, type: 3}
       propertyPath: Position
       value: 0

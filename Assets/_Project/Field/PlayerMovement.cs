@@ -32,7 +32,7 @@ namespace AmericanFootballManager {
             PlayerAnimation.MoveForward();
         }
         public void WalkBack() {
-            rb.velocity = BackDirection * speed;
+            rb.velocity = BackDirection * speed / 3.0f;
             PlayerAnimation.MoveBackward();
         }
         public void TurnAndWalk(Vector3 direction) {
