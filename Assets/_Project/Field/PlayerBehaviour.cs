@@ -14,6 +14,7 @@ namespace AmericanFootballManager {
     void Start() {
       rb = GetComponent<Rigidbody>();
       Interface.OnSnap += DoSnap;
+      Ball.OnPassCompleted += RealizeProgram;
     }
     void DoSnap() {
       RealizeProgram();
@@ -23,7 +24,7 @@ namespace AmericanFootballManager {
       rb.isKinematic = true;
       StartCoroutine(WaitAndRealize());
     }
-    void RealizeProgram() {
+    public void RealizeProgram() {
       if (Program == Program.holdPosition) {
         PlayerMovement.Idle();
       } else if (Program == Program.runForward) {
@@ -32,7 +33,7 @@ namespace AmericanFootballManager {
         PlayerMovement.TurnAndWalk(GetToBallDirection());
       } else if (Program == Program.snap) {
         if (HasBall()) ThrowBallTo(MyQB);
-        PlayerMovement.Idle();
+        else PlayerMovement.Idle();
       } else if (Program == Program.walkBack) {
         PlayerMovement.WalkBack();
       }
@@ -45,7 +46,7 @@ namespace AmericanFootballManager {
       Ball.ThrowTo(MyQB);
     }
     Vector3 GetToBallDirection() {
-      Vector3 ballPosition = new Vector3(-16.0200005f, 9.75f, -43.3199997f);
+      Vector3 ballPosition = Ball.transform.position;
       Vector3 directionToBall = ballPosition - transform.position;
       directionToBall.Normalize();
       return directionToBall;

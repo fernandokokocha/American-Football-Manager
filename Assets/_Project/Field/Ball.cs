@@ -5,13 +5,15 @@ using Zenject;
 namespace AmericanFootballManager {
   public class Ball : MonoBehaviour {
     float speed = 100.0f;
-    private Nullable<Vector3> TargetPosition = null;
-    private PlayerPosition Target = null;
+#nullable enable
+    private PlayerPosition? Target = null;
+#nullable disable
     [Inject] Indicator Indicator;
+    public static event Action OnPassCompleted;
 
     public void Update() {
-      if (TargetPosition.HasValue) {
-        float distance = Vector3.Distance(transform.position, TargetPosition.Value);
+      if (Target != null) {
+        float distance = Vector3.Distance(transform.position, TargetPosition());
         if (distance < 1.0f) {
           TransferBall();
         } else {
@@ -19,29 +21,33 @@ namespace AmericanFootballManager {
         }
       }
     }
+    private Vector3 TargetPosition() {
+      Vector3 targetPosition = Target.transform.position;
+      targetPosition.y += 15;
+      return targetPosition;
+    }
 
     public void ThrowTo(PlayerPosition Player) {
       transform.SetParent(null);
       Indicator.PlayerToShow = null;
 
       Vector3 position = Player.GetComponent<Transform>().position;
-      TargetPosition = position;
       Target = Player;
     }
 
     private void ChangePosition() {
       transform.position = Vector3.MoveTowards(
           transform.position,
-          TargetPosition.Value,
+          TargetPosition(),
           speed * Time.deltaTime
       );
     }
 
     private void TransferBall() {
       transform.SetParent(Target.transform);
+      OnPassCompleted?.Invoke();
       Indicator.PlayerToShow = Target.GetComponent<PlayerAppearence>();
 
-      TargetPosition = null;
       Target = null;
     }
   }
