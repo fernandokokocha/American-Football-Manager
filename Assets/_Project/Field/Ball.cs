@@ -10,6 +10,7 @@ namespace AmericanFootballManager {
 #nullable disable
     [Inject] Indicator Indicator;
     public static event Action OnPassCompleted;
+    public static event Action OnTackle;
 
     public void Update() {
       if (Target != null) {
@@ -49,6 +50,10 @@ namespace AmericanFootballManager {
       Indicator.PlayerToShow = Target.GetComponent<PlayerAppearence>();
 
       Target = null;
+    }
+    public void GetTackled() {
+      GetComponent<CapsuleCollider>().isTrigger = false;
+      OnTackle?.Invoke();
     }
   }
 }
