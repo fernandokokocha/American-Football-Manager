@@ -1,10 +1,18 @@
 using UnityEngine;
+using Zenject;
 
 namespace AmericanFootballManager {
   [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
   public class Indicator : MonoBehaviour {
-    public PlayerAppearence PlayerToShow;
+#nullable enable
+    [Inject(Id = "C")] public PlayerAppearence? PlayerToShow;
+#nullable disable
     void Update() {
+      if (PlayerToShow == null) {
+        GetComponent<MeshFilter>().mesh = null;
+        return;
+      }
+
       Vector3 playerPosition = PlayerToShow.transform.position;
 
       var mesh = new Mesh { name = "Player Indicator" };

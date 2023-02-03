@@ -1,11 +1,13 @@
 using UnityEngine;
 using System;
+using Zenject;
 
 namespace AmericanFootballManager {
   public class Ball : MonoBehaviour {
     float speed = 100.0f;
     private Nullable<Vector3> TargetPosition = null;
     private PlayerPosition Target = null;
+    [Inject] Indicator Indicator;
 
     public void Update() {
       if (TargetPosition.HasValue) {
@@ -20,6 +22,8 @@ namespace AmericanFootballManager {
 
     public void ThrowTo(PlayerPosition Player) {
       transform.SetParent(null);
+      Indicator.PlayerToShow = null;
+
       Vector3 position = Player.GetComponent<Transform>().position;
       TargetPosition = position;
       Target = Player;
@@ -35,6 +39,7 @@ namespace AmericanFootballManager {
 
     private void TransferBall() {
       transform.SetParent(Target.transform);
+      Indicator.PlayerToShow = Target.GetComponent<PlayerAppearence>();
 
       TargetPosition = null;
       Target = null;

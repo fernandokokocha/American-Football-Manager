@@ -10,7 +10,7 @@ namespace AmericanFootballManager {
     private Rigidbody rb;
     [Inject] private Interface Interface;
     [Inject] private Ball Ball;
-    [Inject] private PlayerPosition MyQB;
+    [Inject(Id = "QB")] private PlayerPosition MyQB;
     void Start() {
       rb = GetComponent<Rigidbody>();
       Interface.OnSnap += DoSnap;
