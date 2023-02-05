@@ -19,9 +19,9 @@ namespace AmericanFootballManager {
       GetComponent<MeshFilter>().mesh = mesh;
 
       mesh.vertices = new Vector3[] {
-        new Vector3(playerPosition.x + 12, 25, playerPosition.z),
-        new Vector3(playerPosition.x - 8, 50, playerPosition.z),
-        new Vector3(playerPosition.x + 32, 50, playerPosition.z)
+        new Vector3(playerPosition.x + 12, 25, playerPosition.z + 50),
+        new Vector3(playerPosition.x - 8, 50, playerPosition.z + 50),
+        new Vector3(playerPosition.x + 32, 50, playerPosition.z + 50)
       };
 
       mesh.triangles = new int[] { 0, 1, 2 };

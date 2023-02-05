@@ -52,7 +52,6 @@ namespace AmericanFootballManager {
       Target = null;
     }
     public void GetTackled() {
-      GetComponent<CapsuleCollider>().isTrigger = false;
       OnTackle?.Invoke();
     }
   }
