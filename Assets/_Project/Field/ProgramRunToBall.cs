@@ -3,14 +3,15 @@ using UnityEngine;
 using Zenject;
 
 namespace AmericanFootballManager {
-  public class ProgramIdle : MonoBehaviour, IProgram {
+  public class ProgramRunToBall : MonoBehaviour, IProgram {
     [Inject] private Ball Ball;
+    [Inject(Id = "QB")] private PlayerPosition MyQB;
     public ProgramState ProgramState;
     public void Start() {
       StartCoroutine(StateMachine());
     }
     public IEnumerator StateMachine() {
-      ProgramState = ProgramState.Idle;
+      ProgramState = ProgramState.RunToBall;
       yield return null;
     }
     public ProgramState State() {

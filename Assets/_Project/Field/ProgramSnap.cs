@@ -6,13 +6,13 @@ namespace AmericanFootballManager {
   public class ProgramSnap : MonoBehaviour, IProgram {
     [Inject] private Ball Ball;
     [Inject(Id = "QB")] private PlayerPosition MyQB;
+    [Inject] private Interface Interface;
     public ProgramState ProgramState;
     public void Start() {
       StartCoroutine(StateMachine());
     }
     public IEnumerator StateMachine() {
-      ProgramState = ProgramState.Idle;
-      yield return new WaitUntil(Behaviour().SnapDone);
+      yield return new WaitUntil(Interface.HasSnapped);
       ThrowBallTo(MyQB);
       ProgramState = ProgramState.Idle;
     }
