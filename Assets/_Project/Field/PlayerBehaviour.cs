@@ -3,17 +3,26 @@ using UnityEngine;
 using Zenject;
 
 namespace AmericanFootballManager {
-  public enum Program { holdPosition, runForward, runToBall, snap, none };
+  public enum AvailableProgram { QB, Snap, Idle };
   public class PlayerBehaviour : MonoBehaviour {
     public PlayerMovement PlayerMovement;
-    public Program Program;
+    public AvailableProgram ChosenProgram = AvailableProgram.Idle;
+    private IProgram Program;
     private Rigidbody rb;
     [Inject] private Interface Interface;
     [Inject] private Ball Ball;
-    [Inject(Id = "QB")] private PlayerPosition MyQB;
+    [Inject] private DiContainer Container;
     private bool stop = false;
     public bool snap = false;
     void Start() {
+      if (ChosenProgram == AvailableProgram.QB) {
+        Program = Container.InstantiateComponent<ProgramQB>(gameObject);
+      } else if (ChosenProgram == AvailableProgram.Snap) {
+        Program = Container.InstantiateComponent<ProgramSnap>(gameObject);
+      } else {
+        Program = Container.InstantiateComponent<ProgramIdle>(gameObject);
+      }
+
       rb = GetComponent<Rigidbody>();
       Interface.OnSnap += DoSnap;
       Ball.OnPassCompleted += RealizeProgram;
@@ -28,9 +37,6 @@ namespace AmericanFootballManager {
     }
     void HandleTackle() {
       stop = true;
-    }
-    void HandleStateChange() {
-      RealizeProgram();
     }
     void OnCollisionEnter(Collision collision) {
       if (!collision.gameObject.CompareTag("Player")) return;
@@ -49,32 +55,18 @@ namespace AmericanFootballManager {
         return;
       }
 
-      if (Program == Program.holdPosition) {
+      ProgramState myState = Program.State();
+      if (myState == ProgramState.Idle) {
         PlayerMovement.Idle();
-      } else if (Program == Program.runForward) {
+      } else if (myState == ProgramState.WalkBack) {
+        PlayerMovement.WalkBack();
+      } else if (myState == ProgramState.RunForward) {
         PlayerMovement.WalkForward();
-      } else if (Program == Program.runToBall) {
-        PlayerMovement.TurnAndWalk(GetToBallDirection());
-      } else if (Program == Program.snap) {
-        if (HasBall()) ThrowBallTo(MyQB);
-        else PlayerMovement.Idle();
-      } else if (Program == Program.none) {
-        State myState = GetComponent<ProgramQB>().State;
-        if (myState == State.Idle) {
-          PlayerMovement.Idle();
-        } else if (myState == State.WalkBack) {
-          PlayerMovement.WalkBack();
-        } else if (myState == State.RunForward) {
-          PlayerMovement.WalkForward();
-        }
       }
     }
     public bool HasBall() {
       Ball[] balls = GetComponentsInChildren<Ball>();
       return (balls.Length > 0);
-    }
-    void ThrowBallTo(PlayerPosition MyQB) {
-      Ball.ThrowTo(MyQB);
     }
     Vector3 GetToBallDirection() {
       Vector3 ballPosition = Ball.transform.position;
