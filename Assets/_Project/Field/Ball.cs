@@ -11,6 +11,9 @@ namespace AmericanFootballManager {
     [Inject] Indicator Indicator;
     public static event Action OnPassCompleted;
     public static event Action OnTackle;
+    public void Start() {
+      OnTackle += Drop;
+    }
 
     public void Update() {
       if (Target != null) {
@@ -21,6 +24,12 @@ namespace AmericanFootballManager {
           ChangePosition();
         }
       }
+    }
+    private void Drop() {
+      transform.SetParent(null);
+      GetComponent<Rigidbody>().isKinematic = false;
+      GetComponent<Rigidbody>().useGravity = true;
+      GetComponent<CapsuleCollider>().isTrigger = false;
     }
     private Vector3 TargetPosition() {
       Vector3 targetPosition = Target.transform.position;
@@ -53,6 +62,7 @@ namespace AmericanFootballManager {
     }
     public void GetTackled() {
       OnTackle?.Invoke();
+      Drop();
     }
   }
 }

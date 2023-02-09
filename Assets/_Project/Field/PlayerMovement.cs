@@ -48,6 +48,7 @@ namespace AmericanFootballManager {
     }
     public void GetTackled() {
       rb.velocity = Vector3.zero;
+      rb.isKinematic = true;
       PlayerAnimation.GetTackled();
     }
   }

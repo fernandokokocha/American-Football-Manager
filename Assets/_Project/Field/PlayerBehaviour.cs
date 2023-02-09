@@ -3,7 +3,7 @@ using UnityEngine;
 using Zenject;
 
 namespace AmericanFootballManager {
-  public enum Program { holdPosition, runForward, runToBall, snap, walkBack };
+  public enum Program { holdPosition, runForward, runToBall, snap, none };
   public class PlayerBehaviour : MonoBehaviour {
     public PlayerMovement PlayerMovement;
     public Program Program;
@@ -12,6 +12,7 @@ namespace AmericanFootballManager {
     [Inject] private Ball Ball;
     [Inject(Id = "QB")] private PlayerPosition MyQB;
     private bool stop = false;
+    public bool snap = false;
     void Start() {
       rb = GetComponent<Rigidbody>();
       Interface.OnSnap += DoSnap;
@@ -19,10 +20,17 @@ namespace AmericanFootballManager {
       Ball.OnTackle += HandleTackle;
     }
     void DoSnap() {
+      snap = true;
       RealizeProgram();
+    }
+    public bool SnapDone() {
+      return snap;
     }
     void HandleTackle() {
       stop = true;
+    }
+    void HandleStateChange() {
+      RealizeProgram();
     }
     void OnCollisionEnter(Collision collision) {
       if (!collision.gameObject.CompareTag("Player")) return;
@@ -37,9 +45,10 @@ namespace AmericanFootballManager {
     public void RealizeProgram() {
       if (stop) {
         PlayerMovement.Idle();
+        rb.isKinematic = true;
         return;
       }
-      
+
       if (Program == Program.holdPosition) {
         PlayerMovement.Idle();
       } else if (Program == Program.runForward) {
@@ -49,11 +58,18 @@ namespace AmericanFootballManager {
       } else if (Program == Program.snap) {
         if (HasBall()) ThrowBallTo(MyQB);
         else PlayerMovement.Idle();
-      } else if (Program == Program.walkBack) {
-        StartCoroutine(QBProgram());
+      } else if (Program == Program.none) {
+        State myState = GetComponent<ProgramQB>().State;
+        if (myState == State.Idle) {
+          PlayerMovement.Idle();
+        } else if (myState == State.WalkBack) {
+          PlayerMovement.WalkBack();
+        } else if (myState == State.RunForward) {
+          PlayerMovement.WalkForward();
+        }
       }
     }
-    private bool HasBall() {
+    public bool HasBall() {
       Ball[] balls = GetComponentsInChildren<Ball>();
       return (balls.Length > 0);
     }
@@ -71,11 +87,6 @@ namespace AmericanFootballManager {
       yield return new WaitForSeconds(2);
       rb.isKinematic = false;
       RealizeProgram();
-    }
-    IEnumerator QBProgram() {
-      PlayerMovement.WalkBack();
-      yield return new WaitForSeconds(2);
-      PlayerMovement.Idle();
     }
   }
 }
