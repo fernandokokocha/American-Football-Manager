@@ -3,16 +3,19 @@ using UnityEngine;
 using Zenject;
 
 namespace AmericanFootballManager {
-  public enum AvailableProgram { QB, Snap, RunForward, RunToBall, Idle };
+  public enum AvailableProgram { QB, Snap, RunForward, RunToBall, Cover, Idle };
   public class PlayerBehaviour : MonoBehaviour {
     public PlayerMovement PlayerMovement;
     public AvailableProgram ChosenProgram = AvailableProgram.Idle;
+    [Range(1, 11)]
+    public int ChosenPlayer;
     private IProgram Program;
     private Rigidbody rb;
     [Inject] private Interface Interface;
     [Inject] private Ball Ball;
     [Inject] private DiContainer Container;
     [Inject] public Team Team;
+    [Inject] private GameObject[] AllPlayers;
     private bool stop = false;
     public bool snap = false;
     public bool wait = false;
@@ -25,6 +28,8 @@ namespace AmericanFootballManager {
         Program = Container.InstantiateComponent<ProgramRunForward>(gameObject);
       } else if (ChosenProgram == AvailableProgram.RunToBall) {
         Program = Container.InstantiateComponent<ProgramRunToBall>(gameObject);
+      } else if (ChosenProgram == AvailableProgram.Cover) {
+        Program = Container.InstantiateComponent<ProgramCover>(gameObject);
       } else {
         Program = Container.InstantiateComponent<ProgramIdle>(gameObject);
       }
@@ -44,7 +49,6 @@ namespace AmericanFootballManager {
 
       PlayerBehaviour otherPlayer = collision.gameObject.GetComponent<PlayerBehaviour>();
       if (Team == otherPlayer.Team) {
-        Debug.Log("Kolizja z teammatem");
         return;
       }
 
@@ -81,8 +85,23 @@ namespace AmericanFootballManager {
       } else if (myState == ProgramState.RunForward) {
         PlayerMovement.WalkForward();
       } else if (myState == ProgramState.RunToBall) {
-        PlayerMovement.TurnAndWalk(GetToBallDirection());
+        PlayerMovement.TurnAndWalk(GetToDirection(Ball.transform.position));
+      } else if (myState == ProgramState.Cover) {
+        Debug.Log(MyCover());
+        PlayerMovement.TurnAndWalk(GetToDirection(MyCover().transform.position));
       }
+    }
+    private GameObject MyCover() {
+      int who = 0;
+      foreach (GameObject player in AllPlayers) {
+        if (player.GetComponent<PlayerBehaviour>().Team != Team) {
+          who++;
+          if (who == ChosenPlayer) {
+            return player;
+          }
+        }
+      }
+      return null;
     }
     public bool HasBall() {
       Ball[] balls = GetComponentsInChildren<Ball>();
@@ -93,9 +112,8 @@ namespace AmericanFootballManager {
       yield return new WaitForSeconds(1);
       wait = false;
     }
-    Vector3 GetToBallDirection() {
-      Vector3 ballPosition = Ball.transform.position;
-      Vector3 directionToBall = ballPosition - transform.position;
+    Vector3 GetToDirection(Vector3 position) {
+      Vector3 directionToBall = position - transform.position;
       directionToBall.Normalize();
       return directionToBall;
     }

@@ -14,6 +14,10 @@ namespace AmericanFootballManager {
         .AsSingle();
 
       GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+      Container
+        .Bind<GameObject[]>()
+        .FromInstance(players);
+
       foreach (GameObject player in players) {
         if (player.GetComponent<PlayerPosition>().Position == Position.QB) {
           Container

@@ -2335,8 +2335,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerMovement: {fileID: 4599564763426761351}
-  ChosenProgram: 1
+  ChosenProgram: 5
+  ChosenPlayer: 0
+  Team: {fileID: 0}
   snap: 0
+  wait: 0
 --- !u!114 &8791335051973598303
 MonoBehaviour:
   m_ObjectHideFlags: 0

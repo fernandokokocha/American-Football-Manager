@@ -3,6 +3,7 @@ namespace AmericanFootballManager {
     Idle,
     WalkBack,
     RunForward,
-    RunToBall
+    RunToBall,
+    Cover
   };
 }

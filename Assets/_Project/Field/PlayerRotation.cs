@@ -10,8 +10,11 @@ namespace AmericanFootballManager {
     }
     void Update() {
       if (RotateTowards.HasValue) {
-        Quaternion toRotation = Quaternion.LookRotation(RotateTowards.Value, Vector3.up);
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, toRotation, turnRate * Time.deltaTime);
+        Vector3 lookTo = RotateTowards.Value;
+        lookTo.y = 0;
+        Quaternion toRotation = Quaternion.LookRotation(lookTo, Vector3.up);
+        Quaternion rotateToBall = Quaternion.RotateTowards(transform.rotation, toRotation, turnRate * Time.deltaTime);
+        transform.rotation = rotateToBall;
       }
     }
     public void TurnImmediately(Vector3 direction) {
