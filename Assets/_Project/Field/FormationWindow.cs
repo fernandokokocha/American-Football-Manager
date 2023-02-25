@@ -1,13 +1,11 @@
 using UnityEngine;
+using Zenject;
 
 namespace AmericanFootballManager {
   public class FormationWindow : MonoBehaviour {
+    [Inject] private ActionController ActionController;
     public void Start() {
-
-    }
-
-    public void Show() {
-      gameObject.SetActive(true);
+      gameObject.SetActive(false);
     }
   }
 }
