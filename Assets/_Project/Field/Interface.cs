@@ -10,7 +10,9 @@ namespace AmericanFootballManager {
     private int textHeight = 30;
     [Inject] private ActionController ActionController;
     [Inject] private FormationWindow FormationWindow;
+    private bool formationShown;
     void Start() {
+      formationShown = false;
       snapped = false;
       OnSnap += HandleSnap;
     }
@@ -21,8 +23,10 @@ namespace AmericanFootballManager {
 
       GUI.Box(new Rect(0, 0, Screen.width, boxHeight), "");
 
-      if (GUI.Button(new Rect(10, 10, 50, textHeight), "Snap"))
-        OnSnap?.Invoke();
+      if (!formationShown) {
+        if (GUI.Button(new Rect(10, 10, 50, textHeight), "Snap"))
+          OnSnap?.Invoke();
+      }
 
       String[] downDescs = { "", "1st", "2nd", "3rd", "4th" };
       String downDesc = downDescs[ActionController.CurrentAction.Down];
@@ -33,6 +37,7 @@ namespace AmericanFootballManager {
 
       if (GUI.Button(new Rect(Screen.width - 110, 10, 100, textHeight), "Formation")) {
         FormationWindow.gameObject.SetActive(!FormationWindow.gameObject.activeInHierarchy);
+        formationShown = !formationShown;
       }
     }
     void HandleSnap() {
