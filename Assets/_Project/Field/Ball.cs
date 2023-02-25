@@ -29,6 +29,7 @@ namespace AmericanFootballManager {
       transform.SetParent(null);
       GetComponent<Rigidbody>().isKinematic = false;
       GetComponent<Rigidbody>().useGravity = true;
+      GetComponent<Rigidbody>().velocity = new Vector3(0, -10, 0);
       GetComponent<CapsuleCollider>().isTrigger = false;
     }
     private Vector3 TargetPosition() {

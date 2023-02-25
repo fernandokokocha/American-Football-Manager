@@ -87,7 +87,6 @@ namespace AmericanFootballManager {
       } else if (myState == ProgramState.RunToBall) {
         PlayerMovement.TurnAndWalk(GetToDirection(Ball.transform.position));
       } else if (myState == ProgramState.Cover) {
-        Debug.Log(MyCover());
         PlayerMovement.TurnAndWalk(GetToDirection(MyCover().transform.position));
       }
     }

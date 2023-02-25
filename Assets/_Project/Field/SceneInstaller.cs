@@ -43,6 +43,11 @@ namespace AmericanFootballManager {
         .Bind<Indicator>()
         .FromComponentInHierarchy()
         .AsSingle();
+
+      Container
+        .Bind<ActionController>()
+        .FromComponentInHierarchy()
+        .AsSingle();
     }
   }
 }
