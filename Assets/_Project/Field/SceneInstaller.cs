@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace AmericanFootballManager {
   public class SceneInstaller : MonoInstaller {
+    public GameObject markerPrefab;
     public override void InstallBindings() {
       Container
         .Bind<Team>()
@@ -43,6 +44,18 @@ namespace AmericanFootballManager {
         .Bind<Indicator>()
         .FromComponentInHierarchy()
         .AsSingle();
+
+      Container
+        .Bind<Marker>()
+        .WithId("Marker1")
+        .FromComponentInNewPrefab(markerPrefab)
+        .AsTransient();
+
+      Container
+        .Bind<Marker>()
+        .WithId("Marker2")
+        .FromComponentInNewPrefab(markerPrefab)
+        .AsTransient();
 
       Container
         .Bind<ActionController>()

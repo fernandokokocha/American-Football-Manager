@@ -2495,6 +2495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26f85296bc074c9e96403df79a85679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Marker1: {fileID: 0}
 --- !u!1 &1822236531
 GameObject:
   m_ObjectHideFlags: 0
@@ -2966,6 +2967,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd13d0784a974582a20776d753cfdf4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  markerPrefab: {fileID: 6035234881922057031, guid: 4d0c3310081b247d1a8bbc7f1b4e1c8f, type: 3}
 --- !u!1001 &2075176876
 PrefabInstance:
   m_ObjectHideFlags: 0
