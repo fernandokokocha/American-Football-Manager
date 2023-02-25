@@ -6,10 +6,8 @@ namespace AmericanFootballManager {
     public float height = 15.0f;
     public void ChangeYards(float newYards) {
       yards = newYards;
-      transform.position = new Vector3(YardsToXPosition(yards), height, 275f);
-    }
-    private float YardsToXPosition(float yards) {
-      return yards * 10f - 500f;
+      float x = YardsPositionConverter.YardsToXPosition(yards);
+      transform.position = new Vector3(x, height, 275f);
     }
   }
 }
