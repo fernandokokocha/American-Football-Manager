@@ -6,6 +6,10 @@ namespace AmericanFootballManager {
     public int Down;
     public float MarkerCurrent;
     public float MarkerToGo;
+
+    public int ToGo() {
+      return (int)(MarkerToGo - MarkerCurrent);
+    }
   }
 
   class ActionController : MonoBehaviour {

@@ -4,6 +4,7 @@ using UnityEngine;
 namespace AmericanFootballManager {
   public class SceneInstaller : MonoInstaller {
     public GameObject markerPrefab;
+    public GameObject formationWindowPrefab;
     public override void InstallBindings() {
       Container
         .Bind<Team>()
@@ -60,6 +61,11 @@ namespace AmericanFootballManager {
       Container
         .Bind<ActionController>()
         .FromComponentInHierarchy()
+        .AsSingle();
+
+      Container
+        .Bind<FormationWindow>()
+        .FromComponentInNewPrefab(formationWindowPrefab)
         .AsSingle();
     }
   }
