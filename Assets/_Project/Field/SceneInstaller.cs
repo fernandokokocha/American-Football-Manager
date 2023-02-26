@@ -18,6 +18,7 @@ namespace AmericanFootballManager {
       GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
       Container
         .Bind<GameObject[]>()
+        .WithId("Players")
         .FromInstance(players);
 
       foreach (GameObject player in players) {

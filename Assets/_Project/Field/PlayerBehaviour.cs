@@ -15,7 +15,7 @@ namespace AmericanFootballManager {
     [Inject] private Ball Ball;
     [Inject] private DiContainer Container;
     [Inject] public Team Team;
-    [Inject] private GameObject[] AllPlayers;
+    [Inject(Id = "Players")] private GameObject[] AllPlayers;
     private bool stop = false;
     public bool snap = false;
     public bool wait = false;
@@ -61,6 +61,8 @@ namespace AmericanFootballManager {
     }
     public void Update() {
       if (!snap) {
+        rb.isKinematic = true;
+        PlayerMovement.Idle();
         return;
       }
 

@@ -31,7 +31,7 @@ namespace AmericanFootballManager {
     void NextAction() {
       PlayDescription NextAction = new PlayDescription {
         Down = CurrentAction.Down + 1,
-        MarkerCurrent = YardsPositionConverter.XPositionToYards(Ball.transform.position.x),
+        MarkerCurrent = Converter.XPositionToYards(Ball.transform.position.x),
         MarkerToGo = 60.0f
       };
       CurrentAction = NextAction;
