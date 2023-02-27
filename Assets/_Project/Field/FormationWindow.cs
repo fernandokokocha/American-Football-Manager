@@ -7,6 +7,7 @@ namespace AmericanFootballManager {
     private GameObject[] Caps;
     [Inject(Id = "Players")] private GameObject[] Players;
     public void Start() {
+      Apply();
       gameObject.SetActive(false);
     }
 
