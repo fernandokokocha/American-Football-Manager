@@ -23,7 +23,7 @@ namespace AmericanFootballManager {
 
       GUI.Box(new Rect(0, 0, Screen.width, boxHeight), "");
 
-      if (!formationShown) {
+      if (!formationShown && !snapped) {
         if (GUI.Button(new Rect(10, 10, 50, textHeight), "Snap"))
           OnSnap?.Invoke();
       }
@@ -35,7 +35,8 @@ namespace AmericanFootballManager {
       int toGo = ActionController.CurrentAction.ToGo();
       GUI.Label(new Rect(200, 10, 100, textHeight), $"{toGo} yd to go", style);
 
-      if (GUI.Button(new Rect(Screen.width - 110, 10, 100, textHeight), "Formation")) {
+      String FormationLabel = formationShown ? "Close" : "Formation";
+      if (GUI.Button(new Rect(Screen.width - 110, 10, 100, textHeight), FormationLabel)) {
         FormationWindow.gameObject.SetActive(!FormationWindow.gameObject.activeInHierarchy);
         formationShown = !formationShown;
       }
