@@ -4,6 +4,7 @@ using Zenject;
 namespace AmericanFootballManager {
   public class FormationWindow : MonoBehaviour {
     [Inject] private ActionController ActionController;
+    private Cap Selected;
     public void Start() {
       Apply();
       gameObject.SetActive(false);
@@ -16,6 +17,12 @@ namespace AmericanFootballManager {
         Cap Cap = Caps[i].GetComponent<Cap>();
         Cap.RepositionPlayer();
       }
+    }
+
+    public void HandleSelect(Cap Cap) {
+      if (Selected) Selected.Unselect();
+      Selected = Cap;
+      Cap.Select();
     }
   }
 }
