@@ -4,12 +4,11 @@ using UnityEngine.EventSystems;
 using Zenject;
 
 namespace AmericanFootballManager {
-
   public class Cap : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IPointerClickHandler {
     private RectTransform rectTransform;
     [Inject] private FormationWindow FormationWindow;
     [Inject(Id = "Players")] private GameObject[] Players;
-    private GameObject MyPlayer;
+    public GameObject MyPlayer;
     public int index;
     private void Awake() {
       rectTransform = GetComponent<RectTransform>();

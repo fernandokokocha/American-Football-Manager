@@ -9,7 +9,7 @@ namespace AmericanFootballManager {
     public AvailableProgram ChosenProgram = AvailableProgram.Idle;
     [Range(1, 11)]
     public int ChosenPlayer;
-    private IProgram Program;
+    public IProgram Program;
     private Rigidbody rb;
     [Inject] private Interface Interface;
     [Inject] private Ball Ball;
@@ -20,6 +20,12 @@ namespace AmericanFootballManager {
     public bool snap = false;
     public bool wait = false;
     void Start() {
+      SetProgram();
+      rb = GetComponent<Rigidbody>();
+      Interface.OnSnap += DoSnap;
+      Ball.OnTackle += HandleTackle;
+    }
+    public void SetProgram() {
       if (ChosenProgram == AvailableProgram.QB) {
         Program = Container.InstantiateComponent<ProgramQB>(gameObject);
       } else if (ChosenProgram == AvailableProgram.Snap) {
@@ -34,9 +40,6 @@ namespace AmericanFootballManager {
         Program = Container.InstantiateComponent<ProgramIdle>(gameObject);
       }
 
-      rb = GetComponent<Rigidbody>();
-      Interface.OnSnap += DoSnap;
-      Ball.OnTackle += HandleTackle;
     }
     void DoSnap() {
       snap = true;
