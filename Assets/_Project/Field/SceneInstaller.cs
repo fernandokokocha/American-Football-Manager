@@ -68,6 +68,11 @@ namespace AmericanFootballManager {
         .Bind<FormationWindow>()
         .FromComponentInNewPrefab(formationWindowPrefab)
         .AsSingle();
+
+      Container
+        .Bind<AudioController>()
+        .FromComponentInHierarchy()
+        .AsSingle();
     }
   }
 }

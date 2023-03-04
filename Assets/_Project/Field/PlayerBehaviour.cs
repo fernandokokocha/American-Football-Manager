@@ -25,6 +25,10 @@ namespace AmericanFootballManager {
       Interface.OnSnap += DoSnap;
       Ball.OnTackle += HandleTackle;
     }
+    public void OnDestroy() {
+      Interface.OnSnap -= DoSnap;
+      Ball.OnTackle -= HandleTackle;
+    }
     public void SetProgram() {
       if (ChosenProgram == AvailableProgram.QB) {
         Program = Container.InstantiateComponent<ProgramQB>(gameObject);

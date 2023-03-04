@@ -14,7 +14,9 @@ namespace AmericanFootballManager {
     public void Start() {
       OnTackle += Drop;
     }
-
+    public void OnDestroy() {
+      Ball.OnTackle -= Drop;
+    }
     public void Update() {
       if (Target != null) {
         float distance = Vector3.Distance(transform.position, TargetPosition());

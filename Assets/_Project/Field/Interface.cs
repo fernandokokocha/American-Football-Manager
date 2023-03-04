@@ -8,13 +8,21 @@ namespace AmericanFootballManager {
     public bool snapped;
     private int boxHeight = 50;
     private int textHeight = 30;
-    [Inject] private ActionController ActionController;
+    private ActionController ActionController;
     [Inject] private FormationWindow FormationWindow;
     private bool formationShown;
+    private bool tackled;
     void Start() {
       formationShown = false;
       snapped = false;
+      tackled = false;
       OnSnap += HandleSnap;
+      Ball.OnTackle += HandleTackle;
+      ActionController = GameObject.Find("ActionController").GetComponent<ActionController>();
+    }
+    public void OnDestroy() {
+      Interface.OnSnap -= HandleSnap;
+      Ball.OnTackle -= HandleTackle;
     }
     void OnGUI() {
       GUIStyle style = new();
@@ -28,12 +36,17 @@ namespace AmericanFootballManager {
           OnSnap?.Invoke();
       }
 
+      if (tackled) {
+        if (GUI.Button(new Rect(10, 10, 90, textHeight), "Next action"))
+          ActionController.GoToNextScene();
+      }
+
       String[] downDescs = { "", "1st", "2nd", "3rd", "4th" };
       String downDesc = downDescs[ActionController.CurrentAction.Down];
-      GUI.Label(new Rect(80, 10, 100, textHeight), $"{downDesc} down", style);
+      GUI.Label(new Rect(120, 10, 100, textHeight), $"{downDesc} down", style);
 
       int toGo = ActionController.CurrentAction.ToGo();
-      GUI.Label(new Rect(200, 10, 100, textHeight), $"{toGo} yd to go", style);
+      GUI.Label(new Rect(240, 10, 100, textHeight), $"{toGo} yd to go", style);
 
       String FormationLabel = formationShown ? "Close" : "Formation";
       if (GUI.Button(new Rect(Screen.width - 110, 10, 100, textHeight), FormationLabel)) {
@@ -43,6 +56,9 @@ namespace AmericanFootballManager {
     }
     void HandleSnap() {
       snapped = true;
+    }
+    void HandleTackle() {
+      tackled = true;
     }
     public bool HasSnapped() {
       return snapped;
