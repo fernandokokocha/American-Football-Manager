@@ -51,12 +51,14 @@ namespace AmericanFootballManager {
         .Bind<Marker>()
         .WithId("Marker1")
         .FromComponentInNewPrefab(markerPrefab)
+        .WithGameObjectName("Marker1")
         .AsTransient();
 
       Container
         .Bind<Marker>()
         .WithId("Marker2")
         .FromComponentInNewPrefab(markerPrefab)
+        .WithGameObjectName("Marker2")
         .AsTransient();
 
       Container

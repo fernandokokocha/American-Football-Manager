@@ -1,6 +1,7 @@
 using UnityEngine;
 using Zenject;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 namespace AmericanFootballManager {
   class PlayDescription {
@@ -51,10 +52,17 @@ namespace AmericanFootballManager {
       CurrentAction = NextAction;
       NextAction = null;
 
-      SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+      StartCoroutine(ReloadScene());
+    }
+    private IEnumerator ReloadScene() {
+      var asyncLoadLevel = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
+      while (!asyncLoadLevel.isDone) {
+
+        yield return null;
+      }
+      UpdateRefs();
       UpdateMarkers();
     }
-
     PlayDescription GetNextAction() {
       return new PlayDescription {
         Down = CurrentAction.Down + 1,
@@ -62,9 +70,12 @@ namespace AmericanFootballManager {
         MarkerToGo = 60.0f
       };
     }
-
+    void UpdateRefs() {
+      Ball = GameObject.Find("Ball").GetComponent<Ball>();
+      Marker1 = GameObject.Find("Marker1").GetComponent<Marker>();
+      Marker2 = GameObject.Find("Marker2").GetComponent<Marker>();
+    }
     void UpdateMarkers() {
-      Debug.Log($"UpdateMarkers {CurrentAction.MarkerCurrent} {CurrentAction.MarkerToGo}");
       Marker1.ChangeYards(CurrentAction.MarkerCurrent);
       Marker2.ChangeYards(CurrentAction.MarkerToGo);
     }
