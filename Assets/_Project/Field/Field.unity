@@ -2957,6 +2957,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26f85296bc074c9e96403df79a85679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CurrentAction: {fileID: 11400000, guid: 951d0822930b244519ec93557add4ff8, type: 2}
+  NextAction: {fileID: 0}
   Marker1: {fileID: 0}
   Marker2: {fileID: 0}
 --- !u!1 &1822236531

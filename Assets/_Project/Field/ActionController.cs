@@ -4,16 +4,6 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 
 namespace AmericanFootballManager {
-  class PlayDescription {
-    public int Down;
-    public float MarkerCurrent;
-    public float MarkerToGo;
-
-    public int ToGo() {
-      return (int)(MarkerToGo - MarkerCurrent);
-    }
-  }
-
   class ActionController : MonoBehaviour {
     public PlayDescription CurrentAction;
     public PlayDescription NextAction;
@@ -29,14 +19,8 @@ namespace AmericanFootballManager {
 
       Instance = this;
 
-      if (CurrentAction == null) {
-        CurrentAction = new PlayDescription {
-          Down = 1,
-          MarkerCurrent = 50.0f,
-          MarkerToGo = 60.0f
-        };
-        UpdateMarkers();
-      }
+      CurrentAction.SetFirstActionData();
+      UpdateMarkers();
 
       Ball.OnTackle += HandleTackle;
 
@@ -49,7 +33,7 @@ namespace AmericanFootballManager {
       NextAction = GetNextAction();
     }
     public void GoToNextScene() {
-      CurrentAction = NextAction;
+      CurrentAction.CopyFrom(NextAction);
       NextAction = null;
 
       StartCoroutine(ReloadScene());
@@ -64,11 +48,11 @@ namespace AmericanFootballManager {
       UpdateMarkers();
     }
     PlayDescription GetNextAction() {
-      return new PlayDescription {
-        Down = CurrentAction.Down + 1,
-        MarkerCurrent = Converter.XPositionToYards(Ball.transform.position.x),
-        MarkerToGo = 60.0f
-      };
+      PlayDescription NewAction = ScriptableObject.CreateInstance<PlayDescription>();
+      NewAction.Down = CurrentAction.Down + 1;
+      NewAction.MarkerCurrent = Converter.XPositionToYards(Ball.transform.position.x);
+      NewAction.MarkerToGo = 60.0f;
+      return NewAction;
     }
     void UpdateRefs() {
       Ball = GameObject.Find("Ball").GetComponent<Ball>();

@@ -9,6 +9,7 @@ namespace AmericanFootballManager {
     [Inject] private ActionController ActionController;
     public TMP_Dropdown ProgramDropdown;
     private Cap Selected;
+    public PlayDescription CurrentAction;
     public void Start() {
       Apply();
       gameObject.SetActive(false);
