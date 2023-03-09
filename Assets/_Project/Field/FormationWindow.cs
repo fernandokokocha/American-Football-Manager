@@ -10,9 +10,21 @@ namespace AmericanFootballManager {
     public TMP_Dropdown ProgramDropdown;
     private Cap Selected;
     public PlayDescription CurrentAction;
+    public GameObject Marker1;
+    public GameObject Marker2;
     public void Start() {
+      UpdateField();
       Apply();
       gameObject.SetActive(false);
+    }
+    private void UpdateField() {
+      UpdateMarker(Marker1, CurrentAction.MarkerCurrent);
+      UpdateMarker(Marker2, CurrentAction.MarkerToGo);
+    }
+    private void UpdateMarker(GameObject Marker, float yards) {
+      Vector3 old = Marker.transform.localPosition;
+      float newX = Converter.YardsToCapXPosition(yards);
+      Marker.transform.localPosition = new Vector3(newX, old.y, old.z);
     }
 
     public void Apply() {

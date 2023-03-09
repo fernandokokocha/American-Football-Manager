@@ -13,6 +13,9 @@ namespace AmericanFootballManager {
     public static float CapXPositionToYards(float x) {
       return (x + 370f) / 7.4f;
     }
+    public static float YardsToCapXPosition(float yards) {
+      return (yards * 7.4f) - 370f;
+    }
     public static float YardsToLocalXPosition(float yards) {
       return yards * 10f - 473f;
     }

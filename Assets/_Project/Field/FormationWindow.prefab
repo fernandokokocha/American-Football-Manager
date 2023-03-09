@@ -2824,6 +2824,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ProgramDropdown: {fileID: 2615340025989579271}
   CurrentAction: {fileID: 11400000, guid: 951d0822930b244519ec93557add4ff8, type: 2}
+  Marker1: {fileID: 2788555446430896369}
+  Marker2: {fileID: 774164849237249511}
 --- !u!1 &6383394966228394074
 GameObject:
   m_ObjectHideFlags: 0
