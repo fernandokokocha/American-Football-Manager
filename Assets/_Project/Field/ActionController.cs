@@ -28,6 +28,7 @@ namespace AmericanFootballManager {
     }
     public void OnDestroy() {
       Ball.OnTackle -= HandleTackle;
+      CurrentAction.SetFirstActionData();
     }
     void HandleTackle() {
       NextAction = GetNextAction();

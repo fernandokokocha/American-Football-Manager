@@ -12,14 +12,32 @@ namespace AmericanFootballManager {
     public PlayDescription CurrentAction;
     public GameObject Marker1;
     public GameObject Marker2;
+    private GameObject[] Caps;
     public void Start() {
       UpdateField();
+      UpdateCapRefs();
+      RepositionCaps();
       Apply();
       gameObject.SetActive(false);
     }
     private void UpdateField() {
       UpdateMarker(Marker1, CurrentAction.MarkerCurrent);
       UpdateMarker(Marker2, CurrentAction.MarkerToGo);
+    }
+    private void UpdateCapRefs() {
+      Caps = GameObject.FindGameObjectsWithTag("Cap");
+    }
+    private void RepositionCaps() {
+      for (int i = 0; i < 11; i++) {
+        Cap Cap = Caps[i].GetComponent<Cap>();
+        Vector3 normal = Cap.transform.localPosition;
+        float normalYards = Converter.CapXPositionToYards(normal.x);
+        float yardsDiff = CurrentAction.MarkerCurrent - 50.0f;
+        float newYards = normalYards + yardsDiff;
+        float newX = Converter.YardsToCapXPosition(newYards);
+        Cap.transform.localPosition = new Vector3(newX, normal.y, normal.z);
+      }
+
     }
     private void UpdateMarker(GameObject Marker, float yards) {
       Vector3 old = Marker.transform.localPosition;
@@ -28,8 +46,6 @@ namespace AmericanFootballManager {
     }
 
     public void Apply() {
-      GameObject[] Caps = GameObject.FindGameObjectsWithTag("Cap");
-
       for (int i = 0; i < 11; i++) {
         Cap Cap = Caps[i].GetComponent<Cap>();
         Cap.RepositionPlayer();

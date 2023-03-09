@@ -48,10 +48,12 @@ namespace AmericanFootballManager {
       int toGo = ActionController.CurrentAction.ToGo();
       GUI.Label(new Rect(240, 10, 100, textHeight), $"{toGo} yd to go", style);
 
-      String FormationLabel = formationShown ? "Close" : "Formation";
-      if (GUI.Button(new Rect(Screen.width - 110, 10, 100, textHeight), FormationLabel)) {
-        FormationWindow.gameObject.SetActive(!FormationWindow.gameObject.activeInHierarchy);
-        formationShown = !formationShown;
+      if (!snapped) {
+        String FormationLabel = formationShown ? "Close" : "Formation";
+        if (GUI.Button(new Rect(Screen.width - 110, 10, 100, textHeight), FormationLabel)) {
+          FormationWindow.gameObject.SetActive(!FormationWindow.gameObject.activeInHierarchy);
+          formationShown = !formationShown;
+        }
       }
     }
     void HandleSnap() {
